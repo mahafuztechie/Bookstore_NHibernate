@@ -91,7 +91,33 @@ namespace Bookstore_NhibernateApp.Controllers
             }
         }
 
-      
+        [Route("delete")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteBook(int id)
+        {
+            try
+            {
+                var book = session.Get<BookModel>(id);
+                if (book != null)
+                {
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.Delete(book);
+                        transaction.Commit();
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, "Book deleted Successfully");
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error !");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
 
 
     }

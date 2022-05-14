@@ -9,6 +9,23 @@
 		<property name="Email" />
 		<property name="Password" />
 		<property name="MobileNumber" />
+	
+	</class>
+	<class name="BookModel" table="Book" dynamic-update="true">
+		<cache usage="read-write" />
+		<id name="BookId" column="BookId" type="int">
+			<generator class="native" />
+		</id>
+		<property name="BookName" />
+		<property name="AuthorName" />
+		<property name="Rating" />
+		<property name="RatingCount" />
+		<property name="DiscountPrice" />
+		<property name="ActualPrice" />
+		<property name="Description" />
+		<property name="BookImage" />
+		<property name="BookQuantity" />
+		
 	</class>
 	
 </hibernate-mapping>

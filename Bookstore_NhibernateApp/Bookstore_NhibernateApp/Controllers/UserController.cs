@@ -113,8 +113,8 @@ namespace Bookstore_NhibernateApp.Controllers
         }
 
         [Route("resetPass")]
-        [HttpPost]
-        [Authorize]
+        [HttpPut]
+       
         public HttpResponseMessage ResetPass(ResetPassModel resetPass)
         {
             try
@@ -124,16 +124,26 @@ namespace Bookstore_NhibernateApp.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    List<UserModel> Users = session.Query<UserModel>().ToList();
-                   
-                  
-                        if (resetPass.NewPassword == resetPass.ConfrimPassword)
+                  List<UserModel> Users = session.Query<UserModel>().ToList();
+                 
+                    foreach (var user in Users)
+                    {
+                        if (user.Email == "janto4115@gmail.com")
                         {
-                           // user.Password = resetPass.ConfrimPassword;
+
+                            if (resetPass.NewPassword == resetPass.ConfrimPassword)
+                            {
+                                user.Password = resetPass.ConfrimPassword;
+                                using (ITransaction transaction = session.BeginTransaction())
+                                {
+                                    session.SaveOrUpdate(user);
+                                    transaction.Commit();
+                                }
+                               break;
+                            }
 
                         }
-                    
-
+                    }
                     return Request.CreateResponse(HttpStatusCode.OK, "password reset successful");
                 }
                 else

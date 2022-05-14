@@ -64,11 +64,11 @@ namespace Bookstore_NhibernateApp.Controllers
                     var book = session.Get<BookModel>(bookModel.BookId);
                     book.BookName = bookModel.BookName;
                     book.AuthorName = bookModel.AuthorName;
-                    book.ActualPrice = bookModel.ActualPrice; ;
+                    book.ActualPrice = bookModel.ActualPrice; 
                     book.Rating = bookModel.Rating;
                     book.RatingCount = bookModel.RatingCount;
                     book.Description = bookModel.Description;
-                    book.ActualPrice = bookModel.ActualPrice; ;
+                    book.ActualPrice = bookModel.ActualPrice; 
                     book.DiscountPrice = bookModel.DiscountPrice;
                     book.BookImage = bookModel.BookImage;
                     book.BookQuantity = bookModel.BookQuantity;

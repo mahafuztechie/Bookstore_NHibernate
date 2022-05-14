@@ -45,7 +45,14 @@ namespace Bookstore_NhibernateApp.Controllers
             }
         }
 
-     
+        [Route("get")]
+        [HttpGet]
+        public BookModel getBook(int id)
+        {
+            var book = session.Get<BookModel>(id);
+            return book;
+        }
 
+       
     }
 }

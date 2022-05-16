@@ -47,6 +47,13 @@ namespace Bookstore_NhibernateApp.Controllers
             }
         }
         
-     
+        [HttpGet]
+        public CartModel getCart(int id)
+        {
+            var cart = session.Get<CartModel>(id);
+            return cart;
+        }
+
+   
     }
 }

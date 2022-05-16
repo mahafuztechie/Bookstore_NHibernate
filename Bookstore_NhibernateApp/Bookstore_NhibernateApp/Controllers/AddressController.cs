@@ -90,6 +90,33 @@ namespace Bookstore_NhibernateApp.Controllers
         }
 
 
-       
+        [HttpDelete]
+        public HttpResponseMessage DeleteAddress(int id, int userId)
+        {
+            try
+            {
+                var address = session.Get<AddressModel>(id);
+
+                if (address.UserId == userId)
+                {
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.Delete(address);
+                        transaction.Commit();
+                        return Request.CreateResponse(HttpStatusCode.OK, "Address deleted Successfully");
+                    }
+
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error !");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
     }
 }

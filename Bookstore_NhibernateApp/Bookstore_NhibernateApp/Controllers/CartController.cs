@@ -87,6 +87,33 @@ namespace Bookstore_NhibernateApp.Controllers
         }
 
 
-      
+        [HttpDelete]
+        public HttpResponseMessage DeleteCart(int id, int userId)
+        {
+            try
+            {
+                var cart = session.Get<CartModel>(id);
+             
+                    if(cart.UserId == userId)
+                    {
+                        using (ITransaction transaction = session.BeginTransaction())
+                        {
+                            session.Delete(cart);
+                            transaction.Commit();
+                            return Request.CreateResponse(HttpStatusCode.OK, "cart deleted Successfully");
+                        }
+                       
+                    }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error !");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
     }
 }

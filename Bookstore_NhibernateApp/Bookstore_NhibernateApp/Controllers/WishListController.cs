@@ -69,7 +69,21 @@ namespace Bookstore_NhibernateApp.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-       
+        [HttpGet]
+        public List<WishListModel> getwishlist(int userId)
+        {
+            List<WishListModel> newwishlist = new List<WishListModel>();
+            List<WishListModel> WishLists = session.Query<WishListModel>().ToList();
+            foreach (var wishlist in WishLists)
+            {
+                if (wishlist.UserId == userId)
+                {
+                    newwishlist.Add(wishlist);
+                }
+            }
+
+            return newwishlist;
+        }
 
     }
 }

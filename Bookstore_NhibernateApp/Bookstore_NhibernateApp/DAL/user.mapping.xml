@@ -10,6 +10,7 @@
 		<property name="Password" />
 		<property name="MobileNumber" />
 	
+	
 	</class>
 	<class name="BookModel" table="Book" dynamic-update="true">
 		<cache usage="read-write" />
@@ -25,7 +26,15 @@
 		<property name="Description" />
 		<property name="BookImage" />
 		<property name="BookQuantity" />
-		
+	</class>
+	<class name="CartModel" table="Carts" dynamic-update="true">
+		<cache usage="read-write" />
+		<id name="CartId" column="CartId" type="int">
+			<generator class="native" />
+		</id>
+		<property name="OrderQuantity"/>
+		<property name="UserId"/>
+		<property name="BookId"/>
 	</class>
 	
 </hibernate-mapping>

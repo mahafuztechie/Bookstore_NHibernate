@@ -12,7 +12,7 @@ namespace Bookstore_NhibernateApp.Models
         public virtual string Email { get; set; }
         public virtual string Password { get; set; }
         public virtual string MobileNumber { get; set; }
-
         
+
     }
 }

@@ -45,7 +45,7 @@ namespace Bookstore_NhibernateApp.Controllers
             }
         }
 
-        [Route("get")]
+        
         [HttpGet]
         public BookModel getBook(int id)
         {
@@ -53,15 +53,15 @@ namespace Bookstore_NhibernateApp.Controllers
             return book;
         }
 
-        [Route("update")]
+      
         [HttpPut]
-        public HttpResponseMessage Updatebook(BookModel bookModel)
+        public HttpResponseMessage Updatebook(int bookId, BookModel bookModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var book = session.Get<BookModel>(bookModel.BookId);
+                    var book = session.Get<BookModel>(bookId);
                     book.BookName = bookModel.BookName;
                     book.AuthorName = bookModel.AuthorName;
                     book.ActualPrice = bookModel.ActualPrice; 
@@ -91,7 +91,6 @@ namespace Bookstore_NhibernateApp.Controllers
             }
         }
 
-        [Route("delete")]
         [HttpDelete]
         public HttpResponseMessage DeleteBook(int id)
         {

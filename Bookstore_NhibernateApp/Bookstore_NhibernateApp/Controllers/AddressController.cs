@@ -47,6 +47,14 @@ namespace Bookstore_NhibernateApp.Controllers
             }
         }
 
+        [HttpGet]
+        public AddressModel getAddress(int id)
+        {
+            var address = session.Get<AddressModel>(id);
+            return address;
+        }
+
+
       
     }
 }

@@ -38,6 +38,19 @@ namespace Bookstore_NhibernateApp.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-      
+        public List<OrderModel> GetOrderListByUser(int userId)
+        {
+            List<OrderModel> newOrderList = new List<OrderModel>();
+            List<OrderModel> Orders = session.Query<OrderModel>().ToList();
+            foreach (var order in Orders)
+            {
+                if (order.UserId == userId)
+                {
+                    newOrderList.Add(order);
+                }
+            }
+
+            return newOrderList;
+        }
     }
 }

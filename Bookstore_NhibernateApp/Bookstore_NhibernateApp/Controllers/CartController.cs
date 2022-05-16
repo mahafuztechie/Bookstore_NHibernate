@@ -21,6 +21,32 @@ namespace Bookstore_NhibernateApp.Controllers
             List<CartModel> Collab = session.Query<CartModel>().ToList();
             return Collab;
         }
-  
+        [Route("AddToCart")]
+        [HttpPost]
+        public HttpResponseMessage AddToCart(CartModel cart)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.Save(cart);
+                        transaction.Commit();
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, cart);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error !");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+        
+     
     }
 }

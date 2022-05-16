@@ -48,10 +48,20 @@ namespace Bookstore_NhibernateApp.Controllers
         }
         
         [HttpGet]
-        public CartModel getCart(int id)
+        public List<CartModel> getcarts(int userId)
         {
-            var cart = session.Get<CartModel>(id);
-            return cart;
+            List<CartModel> newCartmodel = new List<CartModel>();
+            List<CartModel> CartModels = session.Query<CartModel>().ToList();
+            foreach (var cart in CartModels)
+            {
+                if (cart.UserId == userId)
+                {
+                    newCartmodel.Add(cart);
+                }
+            }
+
+            return newCartmodel;
+           
         }
 
       

@@ -55,6 +55,17 @@
 		</id>
 		<property name="UserId"/>
 		<property name="BookId"/>
-
+	</class>
+	<class name="OrderModel" table="Orders" dynamic-update="true">
+		<cache usage="read-write" />
+		<id name="OrderId" column="OrderId" type="int">
+			<generator class="native" />
+		</id>
+		<property name="TotalPrice"/>
+		<property name="OrderBookQuantity"/>
+		<property name="OrderDate"/>
+		<property name="UserId"/>
+		<property name="BookId"/>
+		<property name="AddressId"/>
 	</class>
 </hibernate-mapping>

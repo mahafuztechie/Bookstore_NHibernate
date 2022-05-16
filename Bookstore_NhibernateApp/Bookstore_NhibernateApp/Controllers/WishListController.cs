@@ -41,6 +41,35 @@ namespace Bookstore_NhibernateApp.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-  
+        [HttpDelete]
+        public HttpResponseMessage DeletefromWishlist(int id, int userId)
+        {
+            try
+            {
+                var wishlist = session.Get<WishListModel>(id);
+
+                if (wishlist.UserId == userId)
+                {
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.Delete(wishlist);
+                        transaction.Commit();
+                        return Request.CreateResponse(HttpStatusCode.OK, " deleted from wish list");
+                    }
+
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error !");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+       
+
     }
 }

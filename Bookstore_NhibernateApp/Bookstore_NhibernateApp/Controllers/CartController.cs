@@ -54,8 +54,10 @@ namespace Bookstore_NhibernateApp.Controllers
             List<CartModel> CartModels = session.Query<CartModel>().ToList();
             foreach (var cart in CartModels)
             {
+                
                 if (cart.UserId == userId)
                 {
+                    
                     newCartmodel.Add(cart);
                 }
             }

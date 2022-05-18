@@ -18,7 +18,9 @@ namespace Bookstore_NhibernateApp.Models
         public virtual string Description { get; set; }
         public virtual string BookImage { get; set; }
         public virtual int BookQuantity { get; set; }
+        [JsonIgnore]
+        public virtual ISet<CartModel> CartModels { get; set; }
 
-      
+
     }
 }

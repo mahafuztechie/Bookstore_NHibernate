@@ -39,7 +39,22 @@ namespace Bookstore_NhibernateApp.Controllers
             }
         }
 
-      
+        [HttpGet]
+        public List<FeedBackModel> getFeedback(int bookId)
+        {
+            List<FeedBackModel> ListFeedBacks = new List<FeedBackModel>();
+            List<FeedBackModel>feedbacks  = session.Query<FeedBackModel>().ToList();
+            foreach (var Feedback in feedbacks)
+            {
+                if (Feedback.BookId == bookId)
+                {
+                    ListFeedBacks.Add(Feedback);
+                }
+            }
+
+            return ListFeedBacks;
+        }
+
 
     }
 }

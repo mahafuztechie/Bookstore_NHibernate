@@ -56,5 +56,38 @@ namespace Bookstore_NhibernateApp.Controllers
         }
 
 
+        [HttpPut]
+        public HttpResponseMessage UpdateFeedback(int FeedbackId, FeedBackModel feedbackModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var FeedBack= session.Get<FeedBackModel>(FeedbackId);
+                    FeedBack.Comment = feedbackModel.Comment;
+                    FeedBack.Rating = feedbackModel.Rating;
+                    FeedBack.UserId = feedbackModel.UserId;
+                    FeedBack.BookId = feedbackModel.BookId;
+                   
+
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.SaveOrUpdate(FeedBack);
+                        transaction.Commit();
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, FeedBack);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error !");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+
     }
 }
